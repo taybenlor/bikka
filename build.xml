@@ -1,0 +1,5 @@
+<project name="NCSS Group 1">
+  <target name="test">
+    <exec executable="./build.sh" failonerror="true" />
+  </target>
+</project>

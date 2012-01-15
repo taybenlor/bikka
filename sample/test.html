@@ -1,0 +1,10 @@
+<html>
+	<body>
+		<p>Hello, {{ name }}!</p>
+		<p>You have made {{ len(arguments) }} arguments:</p>
+		<ul>{% for argument in arguments %}
+			<li>{{argument}}</li>{% end for %}
+		</ul>
+	</body>
+</html>
+

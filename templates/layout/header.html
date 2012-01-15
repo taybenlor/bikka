@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Bikka: Come argue with us</title>
+        <link href='http://fonts.googleapis.com/css?family=Terminal+Dosis:400,300' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="/static/styles.css" type="text/css">
+        <link rel = "stylesheet" href = "/static/feed.css" type = "text/css">
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    </head>
+    <body>
+    <header>
+        <nav id="login_button"> You can
+        {% if isloggedin %}
+            <a href = "/logout" class="logout button">Logout</a>
+            <a href = "/profile?username={{ username }}" class="loginlink">Profile</a>
+            {% else %}
+            <button href = "/login" class="login button">Login</button>
+            or
+            <a href = "/login" class="register button">Register</a>
+            {% end if %}
+        </nav>
+        
+        <div id="login_wrapper">
+            <form id="login" action="/dologin" method="POST">
+                <input id="usernamefield" name="username" type="text" placeholder="Username">
+                <input id="pwdfield" name="password" type="password" placeholder="Password">
+                <input class="submit_button" name="submit" type="submit" value = "Login">
+            </form>
+        </div> 
+        <hgroup id="logo">
+            <h1> <a href="/"> Bikka </a></h1>
+            <h2> Come argue with us </h2>
+        </hgroup>
+        <nav id="nav">
+            <a href="/argument/create"> + Add Argument </a>
+            <form id="search" action="/search" method="GET">
+                <input type="text" placeholder="Search..." name="query">
+                <input type="submit" value="Go">
+            </form>
+        </nav>
+    </header>
+    <div id="main" rel="main">
+    
+    {% if 'message' in locals() %}
+    <div id="message">{{ message }}</div>
+    {% end if %}
+        
+    <!-- Begin Content -->

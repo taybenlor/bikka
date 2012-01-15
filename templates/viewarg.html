@@ -1,0 +1,29 @@
+{% include templates/layout/header.html %}
+   
+        
+        <!-- Begin Content -->
+        <article>
+            <h1>{{ argument[1] }} </h1>
+            <p>{{ argument[2] }} </p> 
+            <form style="text-align: right" action="/comment/add " method="post" >
+            <textarea id = "comment_textbox" name = "comment"  style = "width:100%">Your comment here:</textarea>
+            <input type="radioo" name="agree" value="Yay" /> Yay
+            <input type="radio" name="agree" value="Nay" /> Nay
+            <input type ="hidden" name="post_id" value="{{ argument[0] }}"/>
+            <input id="comment_submit"  type="submit" value = "Submit">
+            
+            </form>
+
+            
+            <h2>Comments</h2>
+            <p class="comment">The Latest Comment</p>
+            
+            <p class="comment">The Next Comment</p>
+            
+            <p class="comment">Load More Comments (Cant do yet)</p>
+            
+        </article>
+        <!-- End Content -->
+        
+        
+{% include templates/layout/footer.html %}

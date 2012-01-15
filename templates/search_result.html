@@ -1,0 +1,10 @@
+{% include templates/layout/header.html %}
+<h1>Search Results</h1>
+
+{% for result in results %}
+<h3>{% safe result.title() %}</h3>
+<h4>{{ result.type() }}</h4>
+{% safe result.snippet() %}
+{% end for %}
+
+{% include templates/layout/footer.html %}

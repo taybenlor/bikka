@@ -1,0 +1,23 @@
+
+{% include templates/layout/header.html %}
+       
+        <!-- Begin Content -->
+        {% for argument in arguments %}
+        <section class = "argument" id = "one">
+            <article class = "text">
+				<a href=" argument/{{ argument[0] }}" > {% safe argument[1] %} </a>
+                
+            </article>
+            <article class = "footers likedislike">
+                Yay/Nay
+            </article>
+            <article class = "footers timedate">
+               Submitted: {{ argument[2] }}
+            </article>
+            <article class = "footers comment">
+                Number of comments: {{ argument[3] }}
+            </article>
+        </section>
+        {% end for %}
+       
+ {% include templates/layout/footer.html %}

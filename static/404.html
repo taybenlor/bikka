@@ -1,0 +1,15 @@
+{% include templates/layout/header.html %} 
+    <body>
+    {% if 'message' in locals() %}
+    <div id="message">{{ message }}</div>
+    {% end if %}
+        
+    <div id="column">
+    <center>
+    <img src = 'static/snail.png' />
+    <h2>Error 404: you've been snailed</h2>
+    </center>
+    </div>
+    </body>
+    
+{% include templates/layout/footer.html %}
