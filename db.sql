@@ -1,7 +1,7 @@
 drop table if exists users;
 
 create table users(
-    id integer primary key autoincrement,
+    id integer primary key auto_increment,
     username text not null,
     password text not null,
     email text not null,
@@ -12,7 +12,7 @@ create table users(
 drop table if exists posts;
 
 create table posts(
-    id integer primary key autoincrement,
+    id integer primary key auto_increment,
     title text not null,
     description text,
     time datetime not null,
@@ -23,7 +23,7 @@ create table posts(
 );
 drop table if exists comments;
 create table comments(
-    id integer primary key autoincrement,
+    id integer primary key auto_increment,
     post_id integer not null,
     user_id integer not null,
     description text,
