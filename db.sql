@@ -15,7 +15,7 @@ create table posts(
     id serial primary key,
     title text not null,
     description text,
-    time datetime not null,
+    time timestamp not null,
     comments integer not null default 0,
     user_id serial not null,
     foreign key(user_id) references users(user_id),
