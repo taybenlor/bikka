@@ -5,16 +5,21 @@
         <link href='http://fonts.googleapis.com/css?family=Terminal+Dosis:400,300' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/static/styles.css" type="text/css">
+        <link rel="stylesheet" href="/static/search.css" type="text/css">
+        <link rel="stylesheet" href="/static/profilecss.css" type="text/css">
         <link rel = "stylesheet" href = "/static/feed.css" type = "text/css">
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
     </head>
     <body>
     <header>
-        <nav id="login_button"> You can
+        <nav id="login_button">
         {% if isloggedin %}
+            Hello 
+            <a href = "/profile/{{ username }}" class="profile button">{{ username }}</a>,
             <a href = "/logout" class="logout button">Logout</a>
-            <a href = "/profile?username={{ username }}" class="loginlink">Profile</a>
+
             {% else %}
+            Why not
             <button href = "/login" class="login button">Login</button>
             or
             <a href = "/login" class="register button">Register</a>

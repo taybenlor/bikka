@@ -4,7 +4,7 @@ class Node(object):
     def __init__(self, left, right):
         self.left = left
         self.right = right
-    
+
     def eval(self):
         pass
 
@@ -45,6 +45,7 @@ class Parser(object):
                 self.next()
                 return node
             else:
+            	print self.peek()
                 raise SearchQueryException('Missing a closing bracket')
 
         left_value = self.peek()
@@ -63,18 +64,18 @@ class Parser(object):
         else:
             right_node = TextNode(self.peek())
         self.next()
-        
+
         if operator_value == 'and':
-            operator_node = AndNode(left_node, right_node)        
+            operator_node = AndNode(left_node, right_node)
 
         elif operator_value == 'or':
             operator_node = OrNode(left_node, right_node)
-            
+
         elif operator_value == 'not':
             operator_node = NotNode(left_node, right_node)
 
         return operator_node
-    
+
     def is_end(self):
         return self._upto == self._length
 

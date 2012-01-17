@@ -1,14 +1,15 @@
 
 {% include templates/layout/header.html %}
         
-    <h1> Create New Argument </h1>
+    <h1 class="centery"> Create New Argument </h1>
     
     <form action = "/argument/docreate" method="post" > 
-        <input id="arg_title" type="text" name="arg_title" maxlength="140">
-  		<textarea style="width:100%" name="statement">Please write your statement here:</textarea>
+        <input id="arg_title" type="text" name="arg_title" maxlength="140" placeholder="Argument Title">
+  		<textarea style="width:100%" name="statement" placeholder="Please write your statement here..."></textarea>
         
   		<input type = "submit" name = "submit" value="Submit">
         
+        <div class="clear"></div>
   		
   	</form>	
 

@@ -5,11 +5,17 @@ import sqlite3
 def currentuser(response): # returns user object
   conn = sqlite3.connect('database.sqlitedb')
   cur = conn.cursor()
-  username = response.get_cookie('username')
-  password = cur.execute("select password from users where username = '%s'" % username)
-  n = cur.execute("select id from users where username = '%s'" % username)
-  email = cur.execute("select email from users where username = '%s'" % username)
-  return User({'username':username, 'password':password, 'n':n, 'email':email})
+  username = response.get_cookie('username') 
+  cur.execute("select password from users where username = '%s'" % username)
+  password = cur.fetchone()
+  cur.execute("select id from users where username = ?", (username,))
+  n = cur.fetchone()
+  n = n[0] if n else None
+  cur.execute("select email from users where username = '%s'" % username)
+  email = cur.fetchone()
+  cur.execute("select bio from users where username = '%s'" % username)
+  bio = cur.fetchone()
+  return User({'username':username, 'password':password, 'n':n, 'email':email, 'bio':bio})
 
 
 def isloggedin(response): # returns true if logged in, else false
@@ -38,6 +44,7 @@ class User(object):
     self.id = data["n"]
     self.email = data["email"]
     self.password = data["password"]
+    self.bio = data["bio"]
 
   def get_id(self):
     return self.id

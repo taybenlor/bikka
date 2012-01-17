@@ -13,7 +13,7 @@ def rankerComment():
 def rankerTime():
     with open_db() as conn:
         cur = conn.execute("""
-            select id, title, time, comments
+            select id, title, time, comments, description
             from posts
             order by time desc
             limit 10

@@ -2,22 +2,26 @@
     
     <!-- Begin Content -->
         
-            <form id="register" action="/register" method="POST">
+            <form id="registerform" action="/register" method="POST">
                     <label class="label">Username</label>
-                    <input id="newusername" name="newusername" type="text">
+                    <input id="newusername" name="newusername" type="text" placeholder="jay">
                     
                     <label class="label">Email</label>
-                    <input id="email" name="email" type="text">
+                    <input id="email" name="email" type="text" placeholder="jay@example.com">
                     
                     <label class="label">Password</label>
-                    <input id="newpwd" name="newpassword" type="password">
+                    <input id="newpwd" name="newpassword" type="password" placeholder="*****">
                     
                     <label class="label">Confirm Password</label>
-                    <input id="confpass" name="confpassword" type="password">
+                    <input id="confpass" name="confpassword" type="password" placeholder="*****">
+                    
+                    <label class="label">About You</label>
+                    <textarea name="bio" placeholder="I love to argue..."></textarea>
                     
                 
                     
                 <input class="submit_button" name="submit" type="submit" value="Register">
+                <div style="clear: both;"></div>
             </form>
         
     <!-- End Content -->

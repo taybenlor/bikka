@@ -1,12 +1,29 @@
 {% include templates/layout/header.html %}
 <aside id='dp'>
     <img src='{{ dp }}'>
+    {% if username == view %}
+        <span id="editlink"><a href = '/editprofile'>Edit profile</a></span>
+    {% else %}
+        <form action='/follow' method='GET'>
+            <input type="hidden" name="other_name" value="{{ view }}" />
+            {% if is_follower == False %}
+            <input type="hidden" name="to_follow" value="True">
+            <input type="submit" value="Follow" />
+            {% else %}
+            <input type="hidden" name="to_follow" value="False">
+            <input type="submit" value="Unfollow" />
+            {% end if %}
+        </form>
+    {% end if %}
 </aside>
-<article>
+
+<article id="profiles">
     <h1>{{ view }}</h1>
     <div id='bio'>
         {{ bio }}
     </div>
 </article>
-    
+
+<div style="clear: both;"></div>
+
 {% include templates/layout/footer.html %}

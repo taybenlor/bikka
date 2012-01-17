@@ -3,21 +3,18 @@
        
         <!-- Begin Content -->
         {% for argument in arguments %}
-        <section class = "argument" id = "one">
-            <article class = "text">
-				<a href=" argument/{{ argument[0] }}" > {% safe argument[1] %} </a>
-                
+        <a class="nostyle" href="argument/{{ argument[0] }}">
+            <article class="argument">
+                <h1> {% safe argument[1] %} </h1>
+                <!-- Hide these button things
+                <button class="button">Yay</button>
+                <button class="button">Nay</button> -->
+                <span class="description">{{ argument[4] }}</span>
+                <span class="argfooter">
+                    {% if argument[5] > 0 or argument[6] > 0 %}<span class="numberofcomments">{{ int(round(argument[6])) }}% Yes, {{ int(round(argument[5])) }}% No</span> | {% end if %}<time datetime="{{ fix_date(argument[2]) }}">{{ fix_date(argument[2]) }}</time>
+            </span>
             </article>
-            <article class = "footers likedislike">
-                Yay/Nay
-            </article>
-            <article class = "footers timedate">
-               Submitted: {{ argument[2] }}
-            </article>
-            <article class = "footers comment">
-                Number of comments: {{ argument[3] }}
-            </article>
-        </section>
+        </a>
         {% end for %}
        
  {% include templates/layout/footer.html %}

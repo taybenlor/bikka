@@ -1,10 +1,12 @@
 {% include templates/layout/header.html %}
-<h1>Search Results</h1>
+<h1>Search Results - {{ query }}</h1>
 
 {% for result in results %}
-<h3>{% safe result.title() %}</h3>
-<h4>{{ result.type() }}</h4>
+<section class = "searchargument">
+<article class = "text">{% safe result.title() %}</article>
+<!--<h4>{{ result.type() }}</h4>-->
 {% safe result.snippet() %}
+</section>
 {% end for %}
 
 {% include templates/layout/footer.html %}

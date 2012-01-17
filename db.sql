@@ -28,8 +28,8 @@ create table comments(
     user_id integer not null,
     description text,
     agree boolean not null,
-    foreign key (user_id) references users(users_id),
-    foreign key (post_id) references posts(post_id)
+    foreign key (user_id) references users(id),
+    foreign key (post_id) references posts(id)
 );
 drop table if exists followers;
 create table followers(

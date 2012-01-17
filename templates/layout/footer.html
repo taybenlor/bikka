@@ -4,17 +4,21 @@
         <a href="/static/disclaimer.txt">Terms and Conditions</a>
     </footer>
     
-    <script src="/static/js/jquery-1.7.1.js">
-    </script>
+    <script src="/static/js/jquery-1.7.1.js"></script>
+    <script src="/static/js/jquery.timeago.js"></script>
     <script>
-        $("#login_button .login.button").on("click", function(event){
-            var $this=$(this);
+        $(function(){
+            $("#login_button .login.button").on("click", function(event){
+                var $this=$(this);
+                
+                $this.toggleClass("open");
+                $("#login_wrapper").toggleClass("open");
+                
+                $(event).stopPropagation();
+                
+            });
             
-            $this.toggleClass("open");
-            $("#login_wrapper").toggleClass("open");
-            
-            $(event).stopPropagation();
-            
+            $("time").timeago();
         });
     </script>
     </body>

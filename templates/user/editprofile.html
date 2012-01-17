@@ -1,0 +1,11 @@
+{% include templates/layout/header.html %}
+
+<form id="editprofile" action="/editprofile_cont" method="POST">
+    <label class="label">Bio:</label>
+    <textarea cols=20 rows=4 name="editbio">{{ bio }}</textarea>
+    <label class="label">DP URL:</label>
+    <input id="dpurl" name="dpurl" type="text">
+    <input class="submit_button" name="submit" type="submit" value="Register">
+    <div style="clear: both;"></div>
+</form>
+{% include templates/layout/footer.html %}

@@ -6,7 +6,7 @@ import pickle
 from stem import *
 from inverse_index import *
 
-DATABASE_LOC = "database.db"
+DATABASE_LOC = "database.sqlitedb"
 
 ARGUMENT = 'posts'
 COMMENT = 'comments'
@@ -71,9 +71,10 @@ def search(query_string):
 
     # get documents index
     documents = query_inverse_index(tokens, inverse_index())
+    documents_count = inverse_index_count()
 
     # rank these documents
-    ranked = rank(tokens, documents)
+    ranked = rank(tokens, documents, documents_count)
 
     # for each of these documents, get the post title, snippet text and post ID
     results = []
@@ -89,15 +90,15 @@ def search(query_string):
     return results
 
 def dummy_search():
-    """
-    A dummy search to test with.
-    """
-    results = []
-    results.append(SearchResult('Is banana bread a cake?', '...banana bread is...', 0, ARGUMENT))
-    results.append(SearchResult('Are tabs better than spaces?', '...but tabs are...', 1, ARGUMENT))
-    results.append(SearchResult('Of course vim is superior!', "...I need a text editor, not an OS...", 0, COMMENT))
-    results.append(SearchResult("Backpacks are carried, it's obvious!", "...you're all wrong...", 1, COMMENT))
-    return results
+   """
+   A dummy search to test with.
+   """
+   results = []
+   results.append(SearchResult('Is banana bread a cake?', '...banana bread is...', 0, ARGUMENT))
+   results.append(SearchResult('Are tabs better than spaces?', '...but tabs are...', 1, ARGUMENT))
+   results.append(SearchResult('Of course vim is superior!', "...I need a text editor, not an OS...", 0, COMMENT))
+   results.append(SearchResult("Backpacks are carried, it's obvious!", "...you're all wrong...", 1, COMMENT))
+   return results
 
 def get_documents():
     """
@@ -112,8 +113,10 @@ def get_documents():
             (3, ARGUMENT): []
     }
 
+
+
 NOT_RANKED = -1
-def score(query, document, documents):
+def score(query, document, documents, documents_count):
     """
     query - list of stemmed words
     document - data from the index
@@ -141,10 +144,15 @@ def score(query, document, documents):
         for doc in documents.values():
             if len(filter(lambda t: t[0]==term_id, doc)) > 0:
                 term_doc_count += 1
+        #for doc in documents.values():
+        #    term_ids = zip(*doc)
+        #    if term_id in term_ids:
+        #    	term_doc_count += 1
 
         if term_doc_count > 0:
-            doc_count = len(documents)
-            idf = math.log(float(doc_count) / float(term_doc_count))
+            idf = math.log(float(documents_count) / float(term_doc_count))
+        else:
+            continue
 
         # calculate the tf-idf
         tf_idf = float(tf) * idf
@@ -156,16 +164,17 @@ def score(query, document, documents):
 
     return total_tf_idf
 
-def rank(query, documents):
+def rank(query, documents, documents_count):
     """
     query - the list of keywords in your search (tokenise and stem first!)
     documents - the dictionary of documents
     """
     ranked = []
     for document, contents in documents.items():
-        doc_score = score(query, {document: contents}, documents)
+        doc_score = score(query, {document: contents}, documents, documents_count)
         if doc_score != NOT_RANKED:
             ranked.append((doc_score, document))
+    print ranked
     return [doc[1] for doc in sorted(ranked, key=lambda x: x[0], reverse=True)]
 
 def extract_snippets(index_data, loc_id, loc_type):
@@ -180,8 +189,13 @@ def extract_snippets(index_data, loc_id, loc_type):
     #get posts and comments from database
     #print loc_type, loc_id
 
-    query_string = "SELECT title, description FROM %s WHERE id = ?" % str(loc_type)
-    cur.execute(query_string, (str(loc_id)))
+    #query_string = "SELECT title, description FROM %s WHERE id = ?" % str(loc_type)
+    if loc_type == ARGUMENT:
+    	query_string = "SELECT title, description FROM posts WHERE id = ?"
+        cur.execute(query_string, (str(loc_id),))
+    else:
+    	query_string = "SELECT description FROM comments WHERE id = ?"
+    	cur.execute(query_string, (str(loc_id),))
 
     results = cur.fetchall()
 
@@ -191,15 +205,20 @@ def extract_snippets(index_data, loc_id, loc_type):
 
     # TODO: should it be comment's title or post's title
     if len(results) > 0:
-        title, text = results[0]
+        #title, text = results[0]
 
         # link title
         if loc_type == ARGUMENT:
-        	title = '<a href="/argument/%d">%s</a>' % (loc_id, title)
+        	title = '<a href="/argument/%d">%s</a>' % (loc_id, results[0][0])
+        	text = results[0][1]
         else:
-        	cur.execute("SELECT post_id FROM comments WHERE id=?", (loc_id))
-        	post_id = int(cur.fetchall()[0])
+        	cur.execute("SELECT post_id FROM comments WHERE id=?", (str(loc_id),))
+        	post_id = int(cur.fetchone()[0])
+
+        	cur.execute("SELECT title FROM posts WHERE id=?", (str(post_id),))
+        	title = cur.fetchall()[0][0]
         	title = '<a href="/argument/%d">%s</a>' % (post_id, title)
+        	text = results[0][0]
 
         snippets = []
         total_length = 0

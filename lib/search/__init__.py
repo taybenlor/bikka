@@ -1,3 +1,3 @@
 from search import search
-from inverse_index import add_text
+from inverse_index import add_text, create_index
 

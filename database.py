@@ -7,3 +7,4 @@ if not os.path.exists('database.sqlitedb'):
     cur = conn.cursor()
 
     cur.executescript (file('db.sql').read())
+    conn.commit()

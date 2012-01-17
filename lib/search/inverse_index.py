@@ -4,8 +4,10 @@ from stem import *
 import re
 import string
 import pickle
+import sqlite3
 
 FILENAME = 'lib/search/inverse_index.txt'
+DATABASE = 'database.sqlitedb'
 
 word_delimeter = re.compile('[,.!?\s+]')
 
@@ -43,6 +45,26 @@ def add_text(loc_id, text, location_type):
 def empty_index():
     pickle.dump({}, open(FILENAME, 'w'))
 
+def create_index():
+    """ re-create the index from scratch """
+    empty_index()
+    conn = sqlite3.connect(DATABASE)
+    cur = conn.cursor()
+
+    cur.execute('select id, description from posts')
+    for _id, desc in cur.fetchall():
+        #print _id, desc
+        add_text(_id, desc, 'posts')
+
+    cur.execute('select id, description from comments')
+    for _id, desc in cur.fetchall():
+        #print _id, desc
+        add_text(_id, desc, 'comments')
+
+    cur.close()
+    conn.close()
+
+
 def query_inverse_index(query, inverse_index):
     """
     returns a dict of (loc_id, location_type): [(query_token_index, text_position)]
@@ -66,6 +88,22 @@ def query_inverse_index(query, inverse_index):
 
 #    print index_query_result
     return index_query_result
+
+def inverse_index_count():
+    conn = sqlite3.connect(DATABASE)
+    cur = conn.cursor()
+    cur.execute('select count(*) from posts')
+
+    posts_count = int(cur.fetchone()[0])
+
+    cur.execute('select count(*) from comments')
+
+    comments_count = int(cur.fetchone()[0])
+
+    cur.close()
+    conn.close()
+
+    return posts_count + comments_count
 
 #empty_index()
 #add_text('0','this is a mat this is a math cat hat laughing cat laugh cat the cat laughed','argument')
