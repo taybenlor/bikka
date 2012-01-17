@@ -254,10 +254,7 @@ def editprofile_cont(response):
   try:
     imgfile = urllib.urlopen(newdp)
     im = cStringIO.StringIO(imgfile.read())
-    img = Image.open(im)
-    width, height = img.size
-  except:
-    width, height = (0, 0)
+  width, height = (0, 0)
   
   if newbio == None and newdp == None:
     response.redirect("/editprofile?message=You+must+fill+in+some+fields!")
