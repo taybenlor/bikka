@@ -38,7 +38,7 @@ class Server(object):
         if type(static) is not str:
             raise ValueError("static must be a string")
 
-        possible_port = sys.argv[0]
+        possible_port = sys.argv[1]
         if possible_port:
             port = int(possible_port)
 
