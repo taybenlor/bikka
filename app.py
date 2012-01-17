@@ -254,6 +254,9 @@ def editprofile_cont(response):
   try:
     imgfile = urllib.urlopen(newdp)
     im = cStringIO.StringIO(imgfile.read())
+  except:
+    pass
+    
   width, height = (0, 0)
   
   if newbio == None and newdp == None:

@@ -38,6 +38,10 @@ class Server(object):
         if type(static) is not str:
             raise ValueError("static must be a string")
 
+        possible_port = os.environ.get("PORT", 5000)
+        if possible_port:
+            port = int(possible_port)
+
         self.hostname = hostname
         self.port = port
         self.static = static
