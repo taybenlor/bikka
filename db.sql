@@ -18,7 +18,7 @@ create table posts(
     time timestamp not null,
     comments integer not null default 0,
     user_id serial not null,
-    foreign key(user_id) references users(user_id),
+    foreign key(user_id) references users(id),
     unique (title)
 );
 drop table if exists comments;
