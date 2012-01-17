@@ -43,16 +43,17 @@ def open_db():
 
 def test():
     conn = open_db()
-    cur = conn.execute("""
+    cur = conn.cursor()
+    cur.execute("""
     create table if not exists arguments (
     arg_name text not null default '',
     no_comments integer not null default 0,
     time_posted integer not null default 01012000120000) 
     """)
-    cur = conn.execute("""
+    cur.execute("""
     insert into arguments values ('One', 13, 021219990300)
     """)
-    cur = conn.execute("""
+    cur.execute("""
     insert into arguments values ('Two', 18, 021219990300)
     """)
     conn.close()
