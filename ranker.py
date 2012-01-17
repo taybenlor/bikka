@@ -1,4 +1,5 @@
 from pg8000 import DBAPI as sqlite3
+import os, urlparse
 
 def rankerComment():
     with open_db() as conn:
@@ -25,7 +26,16 @@ def rankByAll():
     
 
 def open_db():
-    return sqlite3.connect('database.sqlitedb')
+    url = urlparse.urlparse(os.environ['DATABASE_URL'])
+    config = {
+        'NAME':     url.path[1:],
+        'USER':     url.username,
+        'PASSWORD': url.password,
+        'HOST':     url.hostname,
+        'PORT':     url.port
+    }
+
+    return DBAPI.connect(host=config['HOST'], user=config['USER'], password=config['PASSWORD'], database=config["NAME"])
 
 def test():
     with open_db() as conn:

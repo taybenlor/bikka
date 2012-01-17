@@ -1,8 +1,20 @@
-import sqlite3
+from pg8000 import sqlite
 import os.path
+import os
+import urlparse
 import inverse_index
 
-conn = sqlite3.connect('database.db')
+url = urlparse.urlparse(os.environ['DATABASE_URL'])
+config = {
+    'NAME':     url.path[1:],
+    'USER':     url.username,
+    'PASSWORD': url.password,
+    'HOST':     url.hostname,
+    'PORT':     url.port
+}
+
+conn = DBAPI.connect(host=config['HOST'], user=config['USER'], password=config['PASSWORD'], database=config["NAME"])
+
 cur = conn.cursor()
 
 #    cur.execute("DROP TABLE posts")
@@ -15,8 +27,8 @@ create table posts(
     description text,
     primary key (id),
     unique (title)
-);
-
+);'''
+cur.execute('''
 create table comments(
     id integer not null,
     title text not null,

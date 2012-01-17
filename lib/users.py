@@ -2,9 +2,20 @@
 
 from pg8000 import DBAPI as sqlite3
 
+import os, urlparse
 
 def currentuser(response): # returns user object
-  conn = sqlite3.connect('database.sqlitedb')
+  url = urlparse.urlparse(os.environ['DATABASE_URL'])
+  config = {
+      'NAME':     url.path[1:],
+      'USER':     url.username,
+      'PASSWORD': url.password,
+      'HOST':     url.hostname,
+      'PORT':     url.port
+  }
+
+  conn = DBAPI.connect(host=config['HOST'], user=config['USER'], password=config['PASSWORD'], database=config["NAME"])
+  
   cur = conn.cursor()
   username = response.get_cookie('username') 
   cur.execute("select password from users where username = '%s'" % username)
