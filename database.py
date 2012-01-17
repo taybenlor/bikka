@@ -15,8 +15,10 @@ if __name__ == "__main__":
     cur = conn.cursor()
 
     for query in file('db.sql').read().split(';'):
-      print "Executing:\n %s;" % query
-      cur.execute(query + ";")
+        if query.strip() == "":
+            break;
+        print "Executing:\n %s;" % query
+        cur.execute(query + ";")
 
     conn.commit()
     conn.close()
