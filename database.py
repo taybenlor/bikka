@@ -11,9 +11,11 @@ if __name__ == "__main__":
         'PORT':     url.port
     }
 
-    conn = DBAPI.connect(host=config['HOST'], user=config['USER'], password=config['PASSWORD'])
+    conn = DBAPI.connect(host=config['HOST'], port=config["PORT"], user=config['USER'], password=config['PASSWORD'], database=config["NAME"])
     cur = conn.cursor()
 
-    cur.executescript(file('db.sql').read())
+    for query in file('db.sql').read().split(';'):
+      cur.execute(query + ";")
+
     conn.commit()
     conn.close()
