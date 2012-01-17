@@ -6,7 +6,7 @@ from lib import template
 import ranker
 import database
 import re
-import sqlite3
+from pg8000 import DBAPI as sqlite3
 import hashlib
 import urllib
 import Cookie

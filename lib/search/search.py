@@ -1,5 +1,5 @@
 import math
-import sqlite3
+from pg8000 import DBAPI as sqlite3
 import os.path
 import pickle
 

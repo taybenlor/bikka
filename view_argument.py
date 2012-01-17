@@ -1,5 +1,5 @@
 from tornado import Server
-import sqlite3
+from pg8000 import DBAPI as sqlite3
 from lib import template
 server = Server()
 conn = sqlite3.connect('database.sqlitedb')

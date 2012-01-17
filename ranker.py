@@ -1,4 +1,4 @@
-import sqlite3
+from pg8000 import DBAPI as sqlite3
 
 def rankerComment():
     with open_db() as conn:

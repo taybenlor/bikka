@@ -4,7 +4,7 @@ from stem import *
 import re
 import string
 import pickle
-import sqlite3
+from pg8000 import DBAPI as sqlite3
 
 FILENAME = 'lib/search/inverse_index.txt'
 DATABASE = 'database.sqlitedb'
