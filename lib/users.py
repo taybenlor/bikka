@@ -14,7 +14,7 @@ def currentuser(response): # returns user object
       'PORT':     url.port
   }
 
-  conn = DBAPI.connect(host=config['HOST'], user=config['USER'], password=config['PASSWORD'], database=config["NAME"])
+  conn = sqlite3.connect(host=config['HOST'], user=config['USER'], password=config['PASSWORD'], database=config["NAME"])
   
   cur = conn.cursor()
   username = response.get_cookie('username') 

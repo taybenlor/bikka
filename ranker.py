@@ -35,7 +35,7 @@ def open_db():
         'PORT':     url.port
     }
 
-    return DBAPI.connect(host=config['HOST'], user=config['USER'], password=config['PASSWORD'], database=config["NAME"])
+    return sqlite3.connect(host=config['HOST'], user=config['USER'], password=config['PASSWORD'], database=config["NAME"])
 
 def test():
     with open_db() as conn:
