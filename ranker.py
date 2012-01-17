@@ -3,7 +3,8 @@ import os, urlparse
 
 def rankerComment():
     conn = open_db()
-    cur = conn.execute("""
+    cur = conn.cursor()
+    cur.execute("""
         select id, title, time, comments
         from posts
         order by comments desc
@@ -15,7 +16,8 @@ def rankerComment():
     
 def rankerTime():
     conn = open_db()
-    cur = conn.execute("""
+    cur = conn.cursor()
+    cur.execute("""
         select id, title, time, comments, description
         from posts
         order by time desc
