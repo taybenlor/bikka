@@ -13,7 +13,6 @@ import Cookie
 from lib.users import *
 from lib.search import *
 import sys
-from PIL import Image
 import cStringIO
 import datetime
 import os, urlparse
@@ -256,7 +255,7 @@ def editprofile_cont(response):
     im = cStringIO.StringIO(imgfile.read())
   except:
     pass
-    
+
   width, height = (0, 0)
   
   if newbio == None and newdp == None:
