@@ -35,6 +35,6 @@ drop table if exists followers;
 create table followers(
 	follower_id serial not null,
 	followee_id serial not null,
-	foreign key(follower_id) references user(id),
-	foreign key(followee_id) references user(id)
+	foreign key(follower_id) references users(id),
+	foreign key(followee_id) references users(id)
 );
