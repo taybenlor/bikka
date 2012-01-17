@@ -2,6 +2,7 @@
 
 from pg8000 import DBAPI as sqlite3
 
+
 def currentuser(response): # returns user object
   conn = sqlite3.connect('database.sqlitedb')
   cur = conn.cursor()
