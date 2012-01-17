@@ -15,19 +15,16 @@ def save_comments(response):
 
     post_id = response.get_field('post_id')
 
-    with sqlite3.connect('database.sqlitedb') as conn:
-        user = conn.execute("""
-                select id from users where username = ?
-                """, get_logged_in_user()) # TODO
-    
-    with sqlite3.connect('database.sqlitedb') as conn:
-       post = conn.execute("""
-                select post_id from posts where username = ?
-                """, post_id)
-
-    with sqlite3.connect('database.sqlitedb') as conn:
-        cur = conn.execute("""
-                insert into comments
-                values (post_id = ?, user_id = ?, description = ?,
-                agree = ?)
-                """, (post,user,remark,agreeordis))
+    conn = DBAPI.connect(host=config['HOST'], user=config['USER'], password=config['PASSWORD'], database=config["NAME"])
+    cur = conn.cursor()
+    user = cur.execute("""
+            select id from users where username = ?
+            """, get_logged_in_user()) # TODO
+   post = cur.execute("""
+            select post_id from posts where username = ?
+            """, post_id)
+    cur = cur.execute("""
+            insert into comments
+            values (post_id = ?, user_id = ?, description = ?,
+            agree = ?)
+            """, (post,user,remark,agreeordis))
