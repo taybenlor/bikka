@@ -1,1 +1,1 @@
-web:      bin/python app.py 0.0.0.0:$PORT 
+web:      bin/python app.py $PORT 
