@@ -18,14 +18,14 @@ def currentuser(response): # returns user object
   
   cur = conn.cursor()
   username = response.get_cookie('username') 
-  cur.execute("select password from users where username = '%s'" % username)
+  cur.execute("select password from users where username = '%s';" % username)
   password = cur.fetchone()
-  cur.execute("select id from users where username = ?", (username,))
+  cur.execute("select id from users where username = ?;", (username,))
   n = cur.fetchone()
   n = n[0] if n else None
-  cur.execute("select email from users where username = '%s'" % username)
+  cur.execute("select email from users where username = '%s';" % username)
   email = cur.fetchone()
-  cur.execute("select bio from users where username = '%s'" % username)
+  cur.execute("select bio from users where username = '%s';" % username)
   bio = cur.fetchone()
   return User({'username':username, 'password':password, 'n':n, 'email':email, 'bio':bio})
 
