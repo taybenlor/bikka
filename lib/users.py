@@ -30,6 +30,8 @@ def currentuser(response): # returns user object
   return User({'username':username, 'password':password, 'n':n, 'email':email, 'bio':bio})
 
 
+svn co http://svn.ask.it.usyd.edu.au/ncss121 --username ncss121 --password nc2012ss
+
 def isloggedin(response): # returns true if logged in, else false
   if response.get_cookie('username') == None:
     return False
